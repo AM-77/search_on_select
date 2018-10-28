@@ -9,7 +9,7 @@
 		"scripts" : ["./assets/background.js"]
 	},"content_scripts":[
 		{
-			"matches":["http://*/*","https://*/*"],
+			"matches":["http://*/*","https://*/*", "file://*"],
 			"js":["./assets/script.js"] 
 		}
 	]
