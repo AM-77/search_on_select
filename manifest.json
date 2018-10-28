@@ -1,0 +1,16 @@
+{
+	"name": "Search on Select",
+	"description": "Allows you to easy search for the selected text in most famous and used search engines.",
+	"version": "0.1.0",
+	"manifest_version": 2,
+	"browser_action":{
+		"default_icon": "./assets/on-38x38.png"
+	},"background" : {
+		"scripts" : ["./assets/background.js"]
+	},"content_scripts":[
+		{
+			"matches":["http://*/*","https://*/*"],
+			"js":["./assets/script.js"] 
+		}
+	]
+}
