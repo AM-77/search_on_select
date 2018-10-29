@@ -4,7 +4,7 @@
 	"version": "0.1.0",
 	"manifest_version": 2,
 	"browser_action":{
-		"default_icon": "./assets/on-38x38.png"
+		"default_icon": "./assets/logos/on-38x38.png"
 	},"background" : {
 		"scripts" : ["./assets/background.js"]
 	},"content_scripts":[
