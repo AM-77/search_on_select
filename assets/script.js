@@ -5,7 +5,7 @@ let is_on_obj = { 'is_on': is_on}
 if(localStorage.getItem('is_on') == null)
 	localStorage.setItem('is_on', JSON.stringify(is_on_obj))
 else
-	is_on = localStorage.getItem('is_on')
+	is_on = JSON.parse(localStorage.getItem('is_on')).is_on
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	is_on = request.is_on 
