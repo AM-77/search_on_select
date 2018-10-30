@@ -5,15 +5,19 @@ Search on Select is a chrome extension that allows users to easy search for a se
 
 ## Installation
 
-Download the zip file of the extension from [Here](https://github.com/AM-77/search_on_select/archive/master.zip)
+    1. Download the zip file of the extension from [Here](https://github.com/AM-77/search_on_select/archive/master.zip) then unzip it.
 
-or
+    or
 
-Clone this repository using the clone command
+    Clone this repository using the clone command 
 
-```git
-git clone https://github.com/AM-77/search_on_select.git
-```
+    ```git
+    git clone https://github.com/AM-77/search_on_select.git
+    ```
+
+    2. Go to chrome://extensions/ and check the box for Developer mode in the top right.
+
+    3. Click the Load unpacked extension button and select the unzipped folder for your extension to install it.
 
 
 ## Usage
