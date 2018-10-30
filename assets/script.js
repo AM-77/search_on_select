@@ -13,7 +13,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 	is_on_obj = { 'is_on': is_on}
 	localStorage.setItem('is_on', JSON.stringify(is_on_obj))
-	
 })
 
 
@@ -38,7 +37,7 @@ let Startpage = "https://www.startpage.com/do/dsearch?query="
 document.addEventListener("mouseup", function(e){
 	
 	let search_on_select_wrapper = document.querySelector("div.search_on_select_wrapper")	
-	if(is_on && search_on_select_wrapper == null ){
+	if( search_on_select_wrapper == null ){
 
 		selected_text = get_the_selected_text()
 		if(selected_text != ""){
@@ -62,7 +61,7 @@ document.addEventListener("mouseup", function(e){
 document.addEventListener("keyup", function(e){
 
 	let search_on_select_wrapper = document.querySelector("div.search_on_select_wrapper")	
-	if(is_on && search_on_select_wrapper == null ){
+	if( search_on_select_wrapper == null ){
 
 		selected_text = get_the_selected_text()
 		if(selected_text != ""){
@@ -86,49 +85,53 @@ document.addEventListener("keyup", function(e){
 
 function create_search_div(encoded_selected_text, e){
 
-	let div = document.createElement("div")
-	div.classList.add("search_on_select_wrapper")
-	div.setAttribute("style", "width: 100%; height: 100%; background: rgba(0,0,0,0); z-index: 10000;position: absolute; left: 0px; top: 0px;");
+	if(JSON.parse(localStorage.getItem('is_on')).is_on){
 
-	let pageX = e.pageX
-	let pageY = e.pageY
+		let div = document.createElement("div")
+		div.classList.add("search_on_select_wrapper")
+		div.setAttribute("style", "width: 100%; height: 100%; background: rgba(0,0,0,0); z-index: 10000;position: absolute; left: 0px; top: 0px;");
 
-	if( ((200 + pageX) > window.innerWidth))
-		pageX =  e.pageX - ((200 + pageX) - window.innerWidth + 20 )
+		let pageX = e.pageX
+		let pageY = e.pageY
 
-	div.innerHTML=`
-		<ul style='list-style: none;width: 200px;height: 35px; position: absolute; left: ${ pageX }px; top: ${ pageY }px; border: 1px solid rgb(226, 226, 226); border-radius: 3px; background: rgb(245, 245, 245);overflow: hidden;padding: 0;margin: 0;' >
-			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
-				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Google + encoded_selected_text } "> 
-					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/google.svg")}" />
-				</a>
-			</li>
-			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
-				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 3px;box-sizing: border-box;' target='_blank' href="${ Duckduckgo + encoded_selected_text } "> 
-					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/duckduckgo.svg")}" />
-				</a>
-			</li>
-			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
-				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Yahoo + encoded_selected_text } "> 
-					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/yahoo.svg")}" />
-				</a>
-			</li>
-			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
-				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Bing + encoded_selected_text } ">
-					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/bing.svg")}" />
-				</a>
-			</li>
-			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
-				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Startpage + encoded_selected_text } ">
-					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/startpage.jpg")}" />
-				</a>
-			</li>
-		</ul>
-	`
+		if( ((200 + pageX) > window.innerWidth))
+			pageX =  e.pageX - ((200 + pageX) - window.innerWidth + 20 )
 
-	if(document.querySelector("div.search_on_select_wrapper") != null)
-		document.body.removeChild(document.querySelector("div.search_on_select_wrapper"))
-	document.body.appendChild(div)
+		div.innerHTML=`
+			<ul style='list-style: none;width: 200px;height: 35px; position: absolute; left: ${ pageX }px; top: ${ pageY }px; border: 1px solid rgb(226, 226, 226); border-radius: 3px; background: rgb(245, 245, 245);overflow: hidden;padding: 0;margin: 0;' >
+				<li style='width: 20%;height: 100%;margin: 0;float: left;'>
+					<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Google + encoded_selected_text } "> 
+						<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/google.svg")}" />
+					</a>
+				</li>
+				<li style='width: 20%;height: 100%;margin: 0;float: left;'>
+					<a style='position: relative;display: block;width: 100%;height: 100%;padding: 3px;box-sizing: border-box;' target='_blank' href="${ Duckduckgo + encoded_selected_text } "> 
+						<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/duckduckgo.svg")}" />
+					</a>
+				</li>
+				<li style='width: 20%;height: 100%;margin: 0;float: left;'>
+					<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Yahoo + encoded_selected_text } "> 
+						<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/yahoo.svg")}" />
+					</a>
+				</li>
+				<li style='width: 20%;height: 100%;margin: 0;float: left;'>
+					<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Bing + encoded_selected_text } ">
+						<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/bing.svg")}" />
+					</a>
+				</li>
+				<li style='width: 20%;height: 100%;margin: 0;float: left;'>
+					<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Startpage + encoded_selected_text } ">
+						<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/startpage.jpg")}" />
+					</a>
+				</li>
+			</ul>
+		`
+
+		if(document.querySelector("div.search_on_select_wrapper") != null)
+			document.body.removeChild(document.querySelector("div.search_on_select_wrapper"))
+		document.body.appendChild(div)
+
+	}
 }
 
 document.addEventListener("click", function(e){
@@ -146,4 +149,3 @@ function clearSelection(){
  	if (window.getSelection) {window.getSelection().removeAllRanges();}
  	else if (document.selection) {document.selection.empty();}
 }
-
