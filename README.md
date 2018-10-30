@@ -9,5 +9,5 @@ add the code so the div wont be displayed outside the body
 
 Bug:
 ====
-when clicking once
-when text is selected
+    - when text is selected
+    - fix the storage system 
