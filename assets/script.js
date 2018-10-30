@@ -48,9 +48,11 @@ document.addEventListener("mouseup", function(e){
 			selected_text = ""
 
 			setTimeout(function(){
-				if(document.querySelector("div.search_on_select_wrapper") != null )
+				if(document.querySelector("div.search_on_select_wrapper") != null ){
+					clearSelection()
 					document.body.removeChild( document.querySelector("div.search_on_select_wrapper") )
-			}, 3000) 
+				}
+			}, 5000) 
 
 		}
 	}
@@ -70,9 +72,11 @@ document.addEventListener("keyup", function(e){
 			selected_text = ""
 
 			setTimeout(function(){
-				if(document.querySelector("div.search_on_select_wrapper") != null )
+				if(document.querySelector("div.search_on_select_wrapper") != null ){
+					clearSelection()
 					document.body.removeChild( document.querySelector("div.search_on_select_wrapper") )
-			}, 3000) 
+				}
+			}, 5000) 
 
 		}
 	}
@@ -85,9 +89,15 @@ function create_search_div(encoded_selected_text, e){
 	let div = document.createElement("div")
 	div.classList.add("search_on_select_wrapper")
 	div.setAttribute("style", "width: 100%; height: 100%; background: rgba(0,0,0,0); z-index: 10000;position: absolute; left: 0px; top: 0px;");
-	
+
+	let pageX = e.pageX
+	let pageY = e.pageY
+
+	if( ((200 + pageX) > window.innerWidth))
+		pageX =  e.pageX - ((200 + pageX) - window.innerWidth + 20 )
+
 	div.innerHTML=`
-		<ul style='list-style: none;width: 200px;height: 35px; position: absolute; left: ${e.pageX}px; top: ${e.pageY}px; border: 1px solid rgb(226, 226, 226); border-radius: 3px; background: rgb(245, 245, 245);overflow: hidden;padding: 0;margin: 0;' >
+		<ul style='list-style: none;width: 200px;height: 35px; position: absolute; left: ${ pageX }px; top: ${ pageY }px; border: 1px solid rgb(226, 226, 226); border-radius: 3px; background: rgb(245, 245, 245);overflow: hidden;padding: 0;margin: 0;' >
 			<li style='width: 20%;height: 100%;margin: 0;float: left;'>
 				<a style='position: relative;display: block;width: 100%;height: 100%;padding: 7px;box-sizing: border-box;' target='_blank' href="${ Google + encoded_selected_text } "> 
 					<img style="width: 100%; height: 100%;" src="${chrome.extension.getURL("/assets/logos/google.svg")}" />
@@ -127,8 +137,13 @@ document.addEventListener("click", function(e){
 
 	if( search_on_select_wrapper != null && (e.target == search_on_select_wrapper || path.indexOf(search_on_select_wrapper) > 0) ){
 		document.body.removeChild(search_on_select_wrapper)
+		clearSelection()
 	}
 })
 
 
+function clearSelection(){
+ 	if (window.getSelection) {window.getSelection().removeAllRanges();}
+ 	else if (document.selection) {document.selection.empty();}
+}
 
